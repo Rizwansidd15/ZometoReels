@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+
 const foodPartnerSchema = new mongoose.Schema({
     fullname: {
          type: String,
@@ -21,7 +22,12 @@ const foodPartnerSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    uploadProfilePicture: {
+         type: String,
+         required: true
     }
+
 })
 
 const foodPartnermodel = mongoose.model("foodpartner", foodPartnerSchema)

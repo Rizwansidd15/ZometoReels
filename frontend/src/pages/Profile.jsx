@@ -6,6 +6,8 @@ import avatarImg from "../assets/pro.avif";
 const Profile = () => {
   const [items, setItems] = useState([]);
   const [preview, setPreview] = useState(null);
+  const [partnerName, setPartnerName] = useState("");
+  const [partnerAvatar, setPartnerAvatar] = useState("");
   const params = useParams();
   const partnerId = params?.id;
 
@@ -28,6 +30,17 @@ const Profile = () => {
             return String(fp) === String(partnerId);
           });
           setItems(list);
+          if (list.length > 0) {
+            const bp = list[0].foodPartner;
+            const name = bp && (bp.businessname || bp.fullname || bp.name);
+            if (name) setPartnerName(name);
+            const av =
+              bp &&
+              (bp.uploadProfilePicture || bp.uploadProfilePicture === ""
+                ? bp.uploadProfilePicture
+                : null);
+            if (av) setPartnerAvatar(av);
+          }
         } else {
           const res = await fetch("http://localhost:3000/api/food/mine", {
             credentials: "include",
@@ -46,14 +59,15 @@ const Profile = () => {
     <div className="profile-shell">
       <header className="profile-head card">
         <div className="avatar big">
-          <img src={avatarImg} alt="" />
+          <img
+            src={partnerId ? partnerAvatar || avatarImg : avatarImg}
+            alt=""
+          />
         </div>
         <div className="meta">
           <div className="top-row">
-            <h3>Testy Food</h3>
-            <div className="addr-boxes">
-              <div className="addr">address</div>
-            </div>
+            <h3>{partnerName || "Testy Food"}</h3>
+            <div className="addr-boxes"></div>
           </div>
 
           <div className="stats">

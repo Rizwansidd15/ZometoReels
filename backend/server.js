@@ -10,8 +10,14 @@ if (!process.env.IMAGEKIT_PUBLIC_KEY) {
 const app = require("./src/app");
 const connectDB = require("./src/db/db");
 
-connectDB();
-
-app.listen(3000, () => {
-  console.log("server is running on 3000");
-});
+(async () => {
+  try {
+    await connectDB();
+    app.listen(3000, () => {
+      console.log("server is running on 3000");
+    });
+  } catch (err) {
+    console.error("Failed to start server due to DB connection error");
+    process.exit(1);
+  }
+})();

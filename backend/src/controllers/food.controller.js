@@ -26,7 +26,12 @@ async function createFood(req, res) {
 }
 
 async function getFoodItem(req, res) {
-  const fooditems = await foodmodel.find({});
+  const fooditems = await foodmodel
+    .find({})
+    .populate(
+      "foodPartner",
+      "businessname fullname phone email uploadProfilePicture",
+    );
 
   // attach commentsCount and savesCount per food
   const ids = fooditems.map((f) => f._id);
@@ -69,7 +74,12 @@ async function getMyFoodItems(req, res) {
     return res.status(401).json({ messege: "Unauthorized" });
   }
 
-  const fooditems = await foodmodel.find({ foodPartner: partnerId });
+  const fooditems = await foodmodel
+    .find({ foodPartner: partnerId })
+    .populate(
+      "foodPartner",
+      "businessname fullname phone email uploadProfilePicture",
+    );
   res.status(200).json({
     messege: "partner food items fetched successfully",
     fooditems,

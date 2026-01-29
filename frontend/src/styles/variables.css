@@ -1,11 +1,11 @@
 /* Centralized theme variables — light defaults, dark overrides via media query */
 :root{
-  --bg: #f6f7fb;
+  --bg: #081f29;
   --card: #ffffff;
   --text: #0f1724;
   --muted: #6b7280;
   --accent: #ff6b6b;
-  --accent-2: #7c3aed;
+  --accent-2: #140430;
   --input-bg: #f3f4f6;
   --glass: rgba(255,255,255,0.6);
   --shadow: 0 8px 30px rgba(16,24,40,0.06);
